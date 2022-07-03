@@ -1,6 +1,6 @@
 import {
+  arrayOfTokensToText,
   joinMultiOrderModels,
-  generateSentenceFromMarkovModels,
   nextTokens,
 } from "./functions.js";
 
@@ -11,6 +11,8 @@ import {
 const picknextcontainer = document.getElementById("picknextcontainer");
 const buttonscontainer = document.getElementById("buttonscontainer");
 const storycontainer = document.getElementById("storycontainer");
+const resetbutton = document.getElementById("reset");
+
 const MARKOV_ORDER = 2;
 ///////////////////////////////////////////////////////////////
 /// DEFINE STATE:
@@ -46,7 +48,7 @@ const state = {
       cardElement: null,
     },
   ],
-  currentTokens: [],
+  currentTokens: ["."],
   totalMarkovModels: null,
 };
 
@@ -76,33 +78,49 @@ function registerTapHandlersForButtonCard(stateElement) {
   let htmlCard = document.getElementById(stateElement.slugname);
   stateElement.cardElement = htmlCard;
   htmlCard.addEventListener("click", function (e) {
+    // return if the state change would result
+    // in having zero tabs selected
+    if (
+      stateElement.active &&
+      state.texts.filter((e) => e.active).length <= 1
+    ) {
+      return;
+    }
+
     stateElement.active = !stateElement.active;
     if (stateElement.active) {
       htmlCard.classList.add("active");
     } else {
       htmlCard.classList.remove("active");
     }
-
     console.log(stateElement.slugname);
+    recalculateTotalMarkovModel();
+    showNewSuggestions();
   });
 }
 
-function getMarkovModelTextSuggestions(n = 4, length = 100) {
+function getMarkovModelSuggestions(n = 4, length = 8) {
   return Array(n)
     .fill(0)
     .map((_) => {
-      let text = nextTokens(
+      let tokens = nextTokens(
         state.totalMarkovModels,
         length,
         state.currentTokens
       );
-      return text;
+      let text = arrayOfTokensToText(tokens);
+      return { tokens: tokens, text: text };
     });
 }
 
 function pickNextElementTapped(suggestion) {
-  // TODO+
   console.log(suggestion, "TAPPED");
+
+  let { tokens } = suggestion;
+  state.currentTokens = [...state.currentTokens, ...tokens];
+  let newTotalText = arrayOfTokensToText(state.currentTokens).substring(2);
+  storycontainer.innerHTML = newTotalText;
+  showNewSuggestions();
 }
 
 async function showNewSuggestions() {
@@ -120,14 +138,15 @@ async function showNewSuggestions() {
     outer.className = "picknext";
     let inner = document.createElement("button");
     inner.className = "picknext-inner";
-    inner.innerText = suggestion;
+    inner.innerHTML = suggestion.text;
     inner.addEventListener("click", () => pickNextElementTapped(suggestion));
     outer.appendChild(inner);
     return outer;
   }
 
-  let suggestions = getMarkovModelTextSuggestions();
+  let suggestions = getMarkovModelSuggestions();
 
+  picknextcontainer.innerHTML = "";
   for (let s of suggestions) {
     let child = createPickNextElement(s);
     picknextcontainer.appendChild(child);
@@ -163,7 +182,11 @@ async function main() {
     showNewSuggestions();
   });
 
-  console.log(state);
+  resetbutton.addEventListener("click", function () {
+    state.currentTokens = ["."];
+    storycontainer.innerHTML = "Select a text to start the story...";
+    showNewSuggestions();
+  });
 }
 
 main();

@@ -141,7 +141,7 @@ export function joinMultiOrderModels(modelsArray, order) {
 }
 
 export function nextToken(models, lastTokens = []) {
-  let modelOrder = Math.min(lastTokens.length, models.length);
+  let modelOrder = Math.min(lastTokens.length, models.length - 1);
   let key = lastTokens
     .slice(lastTokens.length - modelOrder, lastTokens.length)
     .join("|");

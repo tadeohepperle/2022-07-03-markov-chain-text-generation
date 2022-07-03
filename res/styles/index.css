@@ -6,6 +6,7 @@
     --primary-hover: rgb(255, 248, 188);
     --text: rgb(36, 36, 36);
     --text-faded: rgb(177, 177, 177);
+    --primary-active:#ff6b31;
 }
 
 .header{
@@ -59,13 +60,18 @@ margin-top: 24px;
     background-color: var(--primary);
 }
 
+
 .buttoncard.active:hover{
     background-color:   var(--primary-hover);
 }
+
+
 .buttoncard:hover{
     color: var(--text);
     border: 3px solid var(--text);
 }
+
+
 
 
 
@@ -100,6 +106,7 @@ margin-top: 24px;
     padding: 8px;
     margin: 8px;
     box-shadow: rgba(0, 0, 0, 0.164) 0px 4px 8px 4px;
+    font-size: 20px;
 }
 
 #picknextcontainer{
@@ -121,8 +128,42 @@ flex-wrap: wrap;
     font-weight: bold;
     transition: all  0.1s ease-in-out;
     padding: 8px;
+    width: 100%;
+    font-size: 20px;
 }
 
 .picknext-inner:hover{
     background-color:  var(--primary-hover);
 }
+
+.picknext-inner:active{
+    background-color:  var(--primary-active);
+}
+
+
+.mybtn{
+    border-radius: 8px;
+    background: var(--primary);
+    border: 3px solid black;
+    font-weight: bold;
+    transition: all  0.1s ease-in-out;
+    padding: 4px 8px;
+    font-size: 20px;
+}
+
+.mybtn:hover{
+    background-color:  var(--primary-hover);
+}
+.mybtn:active{
+    background-color:  var(--primary-active);
+}
+
+
+
+.source {
+    position: fixed;
+    bottom: 10px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+  }
