@@ -1,0 +1,128 @@
+
+
+:root{
+    --headerbg: #C0C7FF;
+    --primary: #FFEF9C;
+    --primary-hover: rgb(255, 248, 188);
+    --text: rgb(36, 36, 36);
+    --text-faded: rgb(177, 177, 177);
+}
+
+.header{
+    padding: 48px;
+    margin-bottom: 24px;
+   
+    background: var(--headerbg);
+    text-align: center;
+}
+
+
+.myh1{
+    color: var(--text);
+    font-size: 48px;
+    margin-bottom: 24px;
+}
+
+
+.myh2{
+    color: var(--text);
+    font-size: 24px;
+}
+
+
+#buttonscontainer{
+margin-top: 24px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    flex-wrap: wrap;
+
+}
+
+.buttoncard{
+    border: 3px solid var(--text-faded);
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: white;
+    color: var(--text-faded);
+    transition: all  0.1s ease-in-out;
+    flex-grow: 1;
+}
+
+.buttoncard.active{
+    border: 3px solid black;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    color: var(--text);
+    background-color: var(--primary);
+}
+
+.buttoncard.active:hover{
+    background-color:   var(--primary-hover);
+}
+.buttoncard:hover{
+    color: var(--text);
+    border: 3px solid var(--text);
+}
+
+
+
+.buttoncard-img{
+    opacity: 0.4;
+    height: 76px;
+    transition: all  0.1s  ease-in-out;
+}
+
+
+.buttoncard:hover>.buttoncard-img
+{
+    opacity: 1;
+}
+
+
+.buttoncard.active > .buttoncard-img{
+    opacity: 1;
+}
+
+.buttoncard-title{
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+
+#storycontainer{
+    margin: 24px 0px;
+    background: white;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 8px;
+    box-shadow: rgba(0, 0, 0, 0.164) 0px 4px 8px 4px;
+}
+
+#picknextcontainer{
+display: flex;
+flex-wrap: wrap;
+}
+
+.picknext{
+    flex-grow: 1;
+    width: 50%;
+    padding: 8px;
+    
+}
+
+.picknext-inner{
+    border-radius: 8px;
+    background: var(--primary);
+    border: 3px solid black;
+    font-weight: bold;
+    transition: all  0.1s ease-in-out;
+    padding: 8px;
+}
+
+.picknext-inner:hover{
+    background-color:  var(--primary-hover);
+}
